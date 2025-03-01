@@ -1,0 +1,2 @@
+to get it to work you need to get https://github.com/jacobm3642/container_lib_c.git 
+and put the complield .so in this dir or you can put it in a system dir that the linker can find

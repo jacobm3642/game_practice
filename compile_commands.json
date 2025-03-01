@@ -1,0 +1,46 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I./include/",
+      "-Wno-error=implicit-fallthrough",
+      "-Wno-implicit-fallthrough",
+      "-Wextra",
+      "-Wall",
+      "-Werror",
+      "-std=c99",
+      "-m64",
+      "-flto",
+      "-O2",
+      "-o",
+      "./build/main",
+      "./src/main.c"
+    ],
+    "directory": "/home/jacob/code/raylib_game",
+    "file": "/home/jacob/code/raylib_game/src/main.c",
+    "output": "/home/jacob/code/raylib_game/build/main"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I./include/",
+      "-Wno-error=implicit-fallthrough",
+      "-Wno-implicit-fallthrough",
+      "-Wextra",
+      "-Wall",
+      "-Werror",
+      "-std=c99",
+      "-m64",
+      "-flto",
+      "-O2",
+      "-o",
+      "./build/main",
+      "./src/platform_layer/window.c"
+    ],
+    "directory": "/home/jacob/code/raylib_game",
+    "file": "/home/jacob/code/raylib_game/src/platform_layer/window.c",
+    "output": "/home/jacob/code/raylib_game/build/main"
+  }
+]
