@@ -24,4 +24,5 @@ void start_3d_camera();
 void load_keys(); 
 bool is_pressed(char key);
 
+void update_camera_controls();
 #endif // !PLATFORM_LAYER_H

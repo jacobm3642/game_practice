@@ -64,7 +64,6 @@ void begin_rendering()
 {
         BeginDrawing();
         ClearBackground(SKYBLUE);
-        DrawGrid(10, 1.0f);
 }
 
 void end_rendering()
@@ -99,30 +98,28 @@ void display_texture_with_pos(unsigned int texture_id, int x, int y)
         DrawTexture(*(Texture2D *)random_access_dynamic_array(texture_id, &window_state.textures), x, y, RAYWHITE);
 }
 
-// model stuff
-
-void draw_model(Model model, Vector3 position, float scale, Vector3 rotationAxis, float rotationAngle, Color tint)
+void update_camera_controls()
 {
-    DrawModelEx(model, position, rotationAxis, rotationAngle, (Vector3){scale, scale, scale}, tint);
+    if (IsKeyDown(KEY_W)) window_state.camera.position.z -= 0.1f;
+    if (IsKeyDown(KEY_S)) window_state.camera.position.z += 0.1f;
+    if (IsKeyDown(KEY_A)) window_state.camera.position.x -= 0.1f;
+    if (IsKeyDown(KEY_D)) window_state.camera.position.x += 0.1f;
+    if (IsKeyDown(KEY_E)) window_state.camera.position.y += 0.1f;
+    if (IsKeyDown(KEY_Q)) window_state.camera.position.y -= 0.1f;
+    
+    if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
+    {
+        Vector2 mouseDelta = GetMouseDelta();
+        float cameraRotX = mouseDelta.x * 0.003f;
+        float cameraRotY = mouseDelta.y * 0.003f;
+        
+        Vector3 direction = Vector3Subtract(window_state.camera.target, window_state.camera.position);
+        
+        direction = Vector3RotateByAxisAngle(direction, (Vector3){0, 1, 0}, cameraRotX);
+        
+        Vector3 right = Vector3CrossProduct(direction, window_state.camera.up);
+        direction = Vector3RotateByAxisAngle(direction, right, cameraRotY);
+        
+        window_state.camera.target = Vector3Add(window_state.camera.position, direction);
+    }
 }
-
-Model load_model(const char *path)
-{
-    return LoadModel(path);
-}
-
-Model load_model_with_texture(const char *modelPath, const char *texturePath)
-{
-    Model model = LoadModel(modelPath);
-    Texture2D texture = LoadTexture(texturePath);
-    SetMaterialTexture(&model.materials[0], MATERIAL_MAP_DIFFUSE, texture);
-    return model;
-}
-
-Model create_cube(float width, float height, float length, Color color)
-{
-    Model cube = LoadModelFromMesh(GenMeshCube(width, height, length));
-    cube.materials[0].maps[MATERIAL_MAP_DIFFUSE].color = color;
-    return cube;
-}
-
